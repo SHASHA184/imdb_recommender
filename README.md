@@ -1,6 +1,29 @@
-# 🎬 IMDb Dataset Analysis
+# 🎬 IMDb Dataset Analysis & Recommendation System
 
-A lightweight Python toolkit for analyzing the complete IMDb dataset directly from TSV files using **pandas**, **polars**, and **DuckDB** - no database required!
+A comprehensive Python toolkit for analyzing the complete IMDb dataset and providing intelligent movie/TV show recommendations using **pandas**, **polars**, and **DuckDB** - no database required!
+
+## 🚀 New: Recommendation System
+
+### 🎯 Multiple Recommendation Algorithms
+
+-   **Content-Based Filtering**: Recommends based on movie genres, ratings, and metadata
+-   **Popularity-Based**: Suggests top-rated movies by genre, year, or overall popularity
+-   **Hybrid Approach**: Combines content similarity with popularity metrics for balanced recommendations
+
+### 🔍 Advanced Features
+
+-   **Smart Search**: Find movies by partial title matching
+-   **Genre Filtering**: Get recommendations by specific genres
+-   **Year-Based Filtering**: Discover movies from specific time periods
+-   **Quality Metrics**: Evaluate recommendation diversity, novelty, and quality
+-   **Interactive Demo**: Test recommendations with your favorite movies
+
+### 📊 Evaluation Tools
+
+-   **Diversity Scoring**: Measures genre variety in recommendations
+-   **Novelty Assessment**: Balances popular vs. niche recommendations
+-   **Performance Benchmarking**: Compare different recommendation algorithms
+-   **Quality Metrics**: Comprehensive evaluation of recommendation systems
 
 ## 🚀 Why TSV-Only Approach?
 
@@ -13,19 +36,20 @@ A lightweight Python toolkit for analyzing the complete IMDb dataset directly fr
 ## 📁 Project Structure
 
 ```
-imdb_parse/
-├── 📊 examples.py            # Analysis examples
-├── 🐍 requirements.txt       # Python dependencies
-├── 📖 README.md             # This file
-├── 🔍 print_values.py       # Debug utility
-├── 📝 error.txt             # Error logs
-├── 📂 title.basics.tsv      # 969MB - Movie/TV show info
-├── 📂 name.basics.tsv       # 851MB - Person info
-├── 📂 title.ratings.tsv     # 27MB - Ratings
-├── 📂 title.crew.tsv        # 370MB - Directors/Writers
-├── 📂 title.episode.tsv     # 226MB - Episode info
-├── 📂 title.akas.tsv        # 2.5GB - Alternative titles
-└── 📂 title.principals.tsv  # 3.9GB - Cast/Crew details
+imdb_recommender/
+├── 📊 examples.py                    # Analysis examples
+├── 🎯 recommendation_system.py       # Main recommendation engine
+├── 🎮 recommendation_demo.py         # Interactive demo & examples
+├── 📈 recommendation_evaluation.py   # Quality metrics & benchmarking
+├── 🐍 requirements.txt               # Python dependencies
+├── 📖 README.md                     # This file
+├── 📂 title.basics.tsv              # 969MB - Movie/TV show info
+├── 📂 name.basics.tsv               # 851MB - Person info
+├── 📂 title.ratings.tsv             # 27MB - Ratings
+├── 📂 title.crew.tsv                # 370MB - Directors/Writers
+├── 📂 title.episode.tsv             # 226MB - Episode info
+├── 📂 title.akas.tsv                # 2.5GB - Alternative titles
+└── 📂 title.principals.tsv          # 3.9GB - Cast/Crew details
 ```
 
 ## 🗄️ Dataset Overview
@@ -59,11 +83,66 @@ imdb_parse/
 # Install dependencies
 pip install -r requirements.txt
 
-# Run examples
+# Run basic analysis examples
 python examples.py
+
+# Try the recommendation system
+python recommendation_demo.py
+
+# Run evaluation benchmarks
+python recommendation_evaluation.py
 ```
 
-## 📊 Analysis Examples
+## 🎯 Recommendation System Usage
+
+### Basic Usage
+
+```python
+from recommendation_system import IMDbRecommendationSystem
+
+# Initialize the system
+recommender = IMDbRecommendationSystem()
+
+# Get content-based recommendations
+recommendations = recommender.get_content_based_recommendations(
+    "The Dark Knight",
+    n_recommendations=5,
+    min_rating=7.0,
+    min_votes=10000
+)
+
+# Print recommendations
+recommender.print_recommendations(recommendations)
+```
+
+### Advanced Features
+
+```python
+# Get popular movies by genre
+action_movies = recommender.get_recommendations_by_genre(
+    "Action",
+    n_recommendations=10,
+    min_rating=7.5
+)
+
+# Get hybrid recommendations (content + popularity)
+hybrid_recs = recommender.get_hybrid_recommendations(
+    "Inception",
+    content_weight=0.7,
+    popularity_weight=0.3
+)
+
+# Search for movies
+results = recommender.search_titles("Avengers", limit=5)
+
+# Get recommendations by year
+movies_2020 = recommender.get_recommendations_by_year(
+    2020,
+    n_recommendations=10
+)
+```
+
+## 📊 Data Analysis Examples
 
 ### 1. Using Pandas (Memory-based)
 
@@ -200,8 +279,39 @@ dtypes = {
     'averageRating': 'float32',
     'numVotes': 'int32'
 }
-df = pd.read_csv('title.ratings.tsv', sep='\t', dtype=dtypes)
 ```
+
+## 🎬 Interactive Demo
+
+Run the interactive demo to test the recommendation system:
+
+```bash
+python recommendation_demo.py
+```
+
+Features:
+
+-   **Content-based recommendations** for popular movies
+-   **Popular movies by genre** (Action, Comedy, Drama, etc.)
+-   **Hybrid recommendations** combining multiple algorithms
+-   **Search functionality** with fuzzy matching
+-   **TV show recommendations** with genre filtering
+-   **Interactive mode** where you can input your own queries
+
+## 📊 Evaluation & Benchmarking
+
+Evaluate the recommendation system performance:
+
+```bash
+python recommendation_evaluation.py
+```
+
+This will generate a comprehensive report including:
+
+-   **Performance benchmarks** for different algorithms
+-   **Quality metrics** (diversity, novelty, coverage)
+-   **Recommendation patterns** analysis
+-   **Improvement suggestions** based on evaluation results
 
 ## 🎯 Use Cases
 
