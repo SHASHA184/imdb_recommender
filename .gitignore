@@ -1,3 +1,9 @@
+# Large IMDb data files
+*.tsv
+*.csv
+*.gz
+*.zip
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
